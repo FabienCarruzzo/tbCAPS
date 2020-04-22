@@ -203,6 +203,9 @@ handles.idx_sep_seeds = {};
 
 handles.is_consensus_clustering = 0;
 
+handles.ConsensusQuality = [];
+handles.Consensus = [];
+
 % Max number of clusters to verify with consensus clustering
 handles.Kmax = 12;
 
@@ -727,6 +730,7 @@ Parameters.SpatioTemporalSelection.MotionThreshold = handles.Tmot;
 Parameters.SpatioTemporalSelection.SelectionMode = handles.SelMode;
 Parameters.SpatioTemporalSelection.FrameSelectionParameter = handles.T;
 Parameters.KMeansClustering.IsConsensusRun = handles.is_consensus_clustering;
+Parameters.KMeansClustering.ConsensusQuality = handles.ConsensusQuality;
 Parameters.KMeansClustering.MaxClusterNumber = handles.Kmax;
 Parameters.KMeansClustering.PercentageDataPerFold = handles.PCC;
 Parameters.KMeansClustering.NumberRepetitions = handles.n_rep;
@@ -758,6 +762,7 @@ Outputs.Metrics.CAPOutDegree = handles.kout;
 Outputs.Metrics.SubjectCounts = handles.SubjectEntries;
          
 HeavyOutputs.SpatioTemporalSelection.ClusteredFrames = handles.Xonp;
+HeavyOutputs.KMeansClustering.Consensus = handles.Consensus;
 
 fancy_name = [handles.project_title];
 
@@ -2245,12 +2250,13 @@ function CCButton_Callback(hObject, eventdata, handles)
     handles = ClearSection4(eventdata,handles);
 
     % Computes the consensus results
-    [Consensus] = CAP_ConsensusClustering(handles.Xonp{handles.ReferencePopulation},2:handles.Kmax,'items',handles.PCC/100,handles.n_rep,'correlation');
+    [handles.Consensus] = CAP_ConsensusClustering(handles.Xonp{handles.ReferencePopulation},2:handles.Kmax,'items',handles.PCC/100,handles.n_rep,'correlation');
 
     % Calculates the quality metrics
-    [~,Lorena] = ComputeClusteringQuality(Consensus,2:handles.Kmax);
+    [~,Lorena] = ComputeClusteringQuality(handles.Consensus,2:handles.Kmax);
     
     handles.is_consensus_clustering = 1;
+    handles.ConsensusQuality = 1-Lorena;
     
     set(handles.CCPlot,'Visible','on');
     tmp_plot = bar(2:handles.Kmax,1-Lorena,'Parent',handles.CCPlot);
