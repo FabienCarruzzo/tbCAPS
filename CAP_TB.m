@@ -751,6 +751,7 @@ Outputs.Metrics.Occurrences = handles.Counts;
 Outputs.Metrics.NumberEntries = handles.Number;
 Outputs.Metrics.AverageExpressionDuration = handles.Avg_Duration;
 Outputs.Metrics.AllExpressionDurations = handles.Duration;
+Outputs.Metrics.TransitionProbabilities = handles.TM;
 Outputs.Metrics.FractionCAPFramesPerSeedCombination = handles.sfrac;
 Outputs.Metrics.CAPEntriesFromBaseline = handles.From_Baseline;
 Outputs.Metrics.CAPExitsToBaseline = handles.To_Baseline;
