@@ -105,7 +105,7 @@ function [Consensus_ordered] = CAP_ConsensusClustering(X,K_range,Subsample_type,
             
             % Does the clustering (for now, only with k-means), so that IDX
             % contains the indices for each datapoint
-            IDX = kmeans(X_ss,K_range(k),'Distance',DistType,'Replicates',1,'Start','uniform');
+            IDX = kmeans(X_ss,K_range(k),'Distance',DistType,'Replicates',10,'Start','uniform');
             
             % Builds the connectivity matrix
             M(:,:,h) = Build_Connectivity_Matrix(IDX,tmp_ss,Subsample_type,n_items); 
