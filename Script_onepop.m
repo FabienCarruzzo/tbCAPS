@@ -1,7 +1,7 @@
 %% This is an example script to run the CAPs analyses without the GUI
 % In this script, we assume one population of subjects only
 
-
+addpath(genpath(pwd));
 
 %% 1. Loading the data files
 
@@ -27,7 +27,7 @@ Seed =
 %% 2. Specifying the main parameters
 
 % Threshold above which to select frames
-T = 1;
+T = 0.8;
 
 % Selection mode ('Threshold' or 'Percentage')
 SelMode = 'Threshold';
@@ -67,7 +67,7 @@ N = 50;
 % Xon will contain the retained frames, and Indices will tag the time
 % points associated to these frames, for each subject (it contains a
 % subfield for retained frames and a subfield for scrubbed frames)
-[Xon,~,Indices] = CAP_find_activity(TC,seed,T,FD,Tmot,SelMode,SeedType,SignMatrix);
+[Xon,~,Indices] = CAP_find_activity(TC,Seed,T,FD,Tmot,SelMode,SeedType,SignMatrix);
   
     
 
@@ -76,24 +76,24 @@ N = 50;
 % This specifies the range of values over which to perform consensus
 % clustering: if you want to run parallel consensus clustering processes,
 % you should feed in different ranges to each call of the function
-K_range = 2:20;
+K_range = 2:6;
 
 % Have each of these run in a separate process on the server =)
 [Consensus] = CAP_ConsensusClustering(Xon,K_range,'items',Pcc/100,N,'correlation');
 
 % Calculates the quality metrics
-[~,Qual] = ComputeClusteringQuality(Consensus,[]);
+[~,PAC] = ComputeClusteringQuality(Consensus,[]);
 
 % Qual should be inspected to determine the best cluster number(s)
 
 % You should fill this with the actual value 
-K_opt = 
+K_opt = 4;
 
 
 
 %% 5. Clustering into CAPs
 
-[CAP,~,~,idx] = Run_Clustering(cell2mat(Xon),...
+[CAP,~,~,idx] = Run_Clustering_Sim(cell2mat(Xon),...
         K_opt,mask,brain_info,Pp,Pn,n_rep,[],SeedType);
 
     
@@ -101,7 +101,7 @@ K_opt =
 %% 6. Computing metrics
 
 % The TR of your data in seconds
-TR = 
+TR = 2;
 
 [ExpressionMap,Counts,Entries,Avg_Duration,Duration,TransitionProbabilities,...
     From_Baseline,To_Baseline,Baseline_resilience,Resilience,Betweenness,...

@@ -21,7 +21,7 @@ function [id,od,deg] = degrees_dir(CIJ)
 
 
 % ensure CIJ is binary...
-CIJ = double(CIJ~=0);
+% CIJ = double(CIJ~=0);
 
 % compute degrees
 id = sum(CIJ,1);    % indegree = column sum of CIJ
