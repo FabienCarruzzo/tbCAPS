@@ -485,7 +485,8 @@ function DataButton_Callback(hObject, eventdata, handles)
 
             % Z-scoring is performed within the toolbox
             % tmp_data = detrend(tmp_data);
-            tmp_data = zscore(tmp_data);
+            % tmp_data = zscore(tmp_data);
+            tmp_data = (tmp_data-repmat(mean(tmp_data),size(tmp_data,1),1)) ./ repmat(std(tmp_data),size(tmp_data,1),1);
 
             % The ready-to-analyse data is put in TC
             handles.TC{handles.n_datasets+1}{i} = tmp_data;
