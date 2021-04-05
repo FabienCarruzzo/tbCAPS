@@ -131,6 +131,10 @@ function [Xonp,p,Indices,idx_sep_seeds,Xonp_scrub] = CAP_find_activity(tcvox,...
                 case 'Union'
                     Indices.scrubbedandactive = (Indices.scrubbedandactive) | cell2mat(flag_active);
                     Indices.kept.active = (Indices.kept.active) | cell2mat(xindp);
+                    
+                case 'Unisection'
+                    Indices.scrubbedandactive = (Indices.scrubbedandactive) | cell2mat(flag_active);
+                    Indices.kept.active = (Indices.kept.active) | cell2mat(xindp);
             end
             
             idx_sep_seeds(:,:,idx) = cell2mat(xindp);

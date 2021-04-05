@@ -50,6 +50,7 @@ function [Ah,h] = Create_CAP_colorbar(absmin,absmax,absstep,colT,lab,Ah,Ori,CB1,
     end
     
         tmp_cmap = cbrewer(CB1,CB2,n_steps);
+        tmp_cmap(tmp_cmap < 0) = 0;
         colormap(Ah,flipud(tmp_cmap));
     
      set(h,'AlphaData',A);

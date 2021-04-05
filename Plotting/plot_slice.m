@@ -69,6 +69,7 @@ function [Handle] = plot_slice(Cp,T,maxC,mask,brain_final,ai,Dimension,MNI,Handl
     % are too low. We ask the axes of interest to be using this colormap
     % colormap(Handle,ddd);
     tmp_cm = cbrewer('div','RdBu',1000);
+    tmp_cm(tmp_cm < 0) = 0;
     colormap(Handle,flipud(tmp_cm));
     
     % Defines that the topmost and bottommost elements of the

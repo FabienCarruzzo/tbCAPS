@@ -1924,6 +1924,22 @@ switch get(hObject,'Value')
             rectangle('Position',[32 10 6 8],'Curvature',[0.8 0.8],'Parent',handles.FancyCircles);
             rectangle('Position',[31 9 8 4],'Curvature',[0.8 0.8],'EdgeColor','none','FaceColor','w','Parent',handles.FancyCircles);
         end
+        
+    % If we have the "union - intersection" pick (only frames when we have
+    % individual activations without shared activations
+    case 4
+        handles.SeedType = 'Unisection';
+        rectangle('Position',[12 -10 6 8],'Curvature',[0.8 0.8],'Parent',handles.FancyCircles);
+        rectangle('Position',[11 -5 8 4],'Curvature',[0.8 0.8],'EdgeColor','none','FaceColor','w','Parent',handles.FancyCircles);
+        rectangle('Position',[12 10 6 8],'Curvature',[0.8 0.8],'EdgeColor','r','Parent',handles.FancyCircles);
+        rectangle('Position',[11 9 8 4],'Curvature',[0.8 0.8],'EdgeColor','none','FaceColor','w','Parent',handles.FancyCircles);
+        
+        if handles.n_seed > 2
+            rectangle('Position',[32 -10 6 8],'Curvature',[0.8 0.8],'Parent',handles.FancyCircles);
+            rectangle('Position',[31 -5 8 4],'Curvature',[0.8 0.8],'EdgeColor','none','FaceColor','w','Parent',handles.FancyCircles);
+            rectangle('Position',[32 10 6 8],'Curvature',[0.8 0.8],'EdgeColor','r','Parent',handles.FancyCircles);
+            rectangle('Position',[31 9 8 4],'Curvature',[0.8 0.8],'EdgeColor','none','FaceColor','w','Parent',handles.FancyCircles);
+        end
 end
 
 % Modifies the axis parameters to have a big enough seed display
