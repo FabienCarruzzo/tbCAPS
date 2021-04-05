@@ -31,6 +31,12 @@ function [Xonp,p,Indices,idx_sep_seeds,Xonp_scrub] = CAP_find_activity(tcvox,...
         case 'Union'
             Indices.kept.active = logical(zeros(size(FDall,1),size(FDall,2)));
             Indices.scrubbedandactive = logical(zeros(size(FDall,1),size(FDall,2)));
+        case 'Unisection'
+            tmp_union = logical(zeros(size(FDall,1),size(FDall,2)));
+            tmp_intersection = logical(ones(size(FDall,1),size(FDall,2)));
+    
+            tmp_union2 = logical(zeros(size(FDall,1),size(FDall,2)));
+            tmp_intersection2 = logical(ones(size(FDall,1),size(FDall,2)));
         otherwise
             Indices.kept.active = logical(ones(size(FDall,1),size(FDall,2)));
             Indices.scrubbedandactive = logical(ones(size(FDall,1),size(FDall,2)));
@@ -133,8 +139,16 @@ function [Xonp,p,Indices,idx_sep_seeds,Xonp_scrub] = CAP_find_activity(tcvox,...
                     Indices.kept.active = (Indices.kept.active) | cell2mat(xindp);
                     
                 case 'Unisection'
-                    Indices.scrubbedandactive = (Indices.scrubbedandactive) | cell2mat(flag_active);
-                    Indices.kept.active = (Indices.kept.active) | cell2mat(xindp);
+                    tmp_union = tmp_union | cell2mat(flag_active);
+                    tmp_intersection = tmp_intersection & cell2mat(flag_active);
+                    
+                    tmp_union2 = tmp_union2 | cell2mat(xindp);
+                    tmp_intersection2 = tmp_intersection2 & cell2mat(xindp);
+                    
+                    if idx == size(seed,2)
+                        Indices.scrubbedandactive = tmp_union - tmp_intersection;
+                        Indices.kept.active = tmp_union2 - tmp_intersection2;
+                    end
             end
             
             idx_sep_seeds(:,:,idx) = cell2mat(xindp);
