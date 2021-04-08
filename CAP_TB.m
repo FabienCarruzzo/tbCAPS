@@ -525,6 +525,11 @@ function DataButton_Callback(hObject, eventdata, handles)
         set(handles.SeedFreeButton,'Enable','on');
         set(handles.TMotText,'Visible','on');
         set(handles.TMotEdit,'Visible','on');
+%         set(handles.TText,'Visible','on');
+%         set(handles.TEdit,'Visible','on');
+%         set(handles.PRadio,'Visible','on');
+%         set(handles.TRadio,'Visible','on');
+%         set(handles.uibuttongroup7,'Visible','on');
 
         % Also, we can now color the button in green
         set(hObject,'BackgroundColor', [101,140,196]/255);
@@ -2582,6 +2587,7 @@ set(handles.CAP_Mat,'Visible','on');
 imagesc(SimMat,'Parent',handles.CAP_Mat);
 
 tmp_cb2 = cbrewer('div','RdBu',1000);
+tmp_cb2(tmp_cb2 < 0) = 0;
 
 colormap(handles.CAP_Mat,flipud(tmp_cb2));
 
